@@ -5,7 +5,6 @@ import { errorHandler } from "./middleware/error-handler";
 import { authMiddleware } from "./middleware/auth-middleware";
 import { authRouter } from "@routes/auth.route";
 import { userRouter } from "@routes/user.route";
-import { roleMiddleware } from "@middleware/role-middleware";
 
 dotenv.config();
 
@@ -16,7 +15,7 @@ export const createApp = () => {
   app.use(express.json());
 
   app.use("/api/auth", authRouter);
-  app.use("/api/users", authMiddleware, roleMiddleware, userRouter);
+  app.use("/api/users", authMiddleware, userRouter);
   app.use(errorHandler);
 
   return app;

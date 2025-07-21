@@ -3,6 +3,7 @@ import * as userService from "src/services/user.service";
 import { getUserFromRequest } from "@utils/jwt";
 import { validate as isUuid } from "uuid";
 import { ITokenPayload } from "src/interfaces/payload.interface";
+import { instanceToPlain } from "class-transformer";
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
@@ -22,7 +23,7 @@ export const getUserById = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json(user);
+    res.json(instanceToPlain(user));
   } catch (error) {
     console.error("getUserById error:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -38,7 +39,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     }
 
     const users = await userService.findAllusers();
-    res.json(users);
+    res.json(instanceToPlain(users));
   } catch (error) {
     console.error("getAllUsers error:", error);
     res.status(500).json({ message: "Internal Server Error" });

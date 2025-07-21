@@ -24,7 +24,7 @@ export const createUser = async (userDto: CreateUserDTO) => {
 };
 
 export const findAllusers = async () => {
-  return userRepo.find();
+  return await userRepo.find();
 };
 
 export const userExists = async (id: string): Promise<boolean> => {
